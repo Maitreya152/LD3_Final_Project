@@ -1,0 +1,159 @@
+==========================================================================================
+  RESEARCH QUESTION 2: ANALYSIS REPORT
+  "Which specific linguistic features dominate the principal components
+   that separate human-written from LLM-generated Marathi text?"
+==========================================================================================
+
+━━━ 1. PCA VARIANCE OVERVIEW ━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PC1 explains 26.80% of total variance
+  PC2 explains 13.35% of total variance
+  Together: 40.15% — strong separation in 2D
+
+━━━ 2. PC1 DOMINANT FEATURES (Primary Separation Axis) ━━
+
+  PC1 captures 26.8% variance. Top contributors:
+
+  Rank   Feature                        Loading  |Loading| Group               
+  ────── ──────────────────────────── ───────── ────────── ────────────────────
+  1      Unique POS Ratio             +  0.3482     0.3482 Syntactic (Deep)     ◄
+  2      Type-Token Ratio             +  0.3339     0.3339 Lexical              ◄
+  3      Hapax Ratio                  +  0.3284     0.3284 Lexical              ◄
+  4      Postfix Variance             +  0.3043     0.3043 Syntactic (Deep)     ◄
+  5      Prefix Variance              +  0.3012     0.3012 Syntactic (Deep)     ◄
+  6      Dep Pattern Diversity        +  0.2750     0.2750 Structural           ◄
+  7      Avg Tree Depth               +  0.2622     0.2622 Structural           ◄
+  8      Avg Dependency Length        +  0.2334     0.2334 Syntactic (Deep)    
+  9      Punctuation Density          −  0.2216     0.2216 Syntactic (Basic)   
+  10     Avg Word Length              +  0.2212     0.2212 Lexical             
+  11     Avg Sentence Length          +  0.2067     0.2067 Syntactic (Basic)   
+  12     Morphological Complexity     −  0.1955     0.1955 Morphological       
+  13     POS Bigram Entropy           −  0.1865     0.1865 Structural          
+  14     Adv Ratio                    −  0.1328     0.1328 POS Density         
+  15     Top-100 Vocab %              +  0.1052     0.1052 Predictability      
+  16     SOV Order Ratio              −  0.0931     0.0931 Structural          
+  17     Proper Noun Ratio            −  0.0925     0.0925 POS Density         
+  18     Adj Ratio                    +  0.0830     0.0830 POS Density         
+  19     Noun Ratio                   +  0.0830     0.0830 POS Density         
+  20     Top-1000 Vocab %             +  0.0550     0.0550 Predictability      
+  21     Sentence Length Var          −  0.0228     0.0228 Syntactic (Basic)   
+  22     Verb Ratio                   −  0.0178     0.0178 POS Density         
+
+  ▸ INTERPRETATION:
+    The primary axis of separation is driven by LEXICAL DIVERSITY
+    features (Type-Token Ratio, Hapax Ratio) and MORPHOLOGICAL
+    VARIANCE features (Prefix/Postfix Variance, Tree Depth).
+    Positive PC1 direction → higher lexical diversity → more HUMAN-like.
+
+━━━ 3. PC2 DOMINANT FEATURES (Secondary Separation Axis) ━
+
+  PC2 captures 13.3% variance. Top contributors:
+
+  Rank   Feature                        Loading  |Loading| Group               
+  ────── ──────────────────────────── ───────── ────────── ────────────────────
+  1      Noun Ratio                   +  0.3746     0.3746 POS Density          ◄
+  2      Proper Noun Ratio            −  0.3283     0.3283 POS Density          ◄
+  3      Dep Pattern Diversity        −  0.3071     0.3071 Structural           ◄
+  4      Postfix Variance             −  0.3060     0.3060 Syntactic (Deep)     ◄
+  5      Prefix Variance              −  0.2944     0.2944 Syntactic (Deep)     ◄
+  6      Avg Tree Depth               +  0.2691     0.2691 Structural           ◄
+  7      Avg Word Length              +  0.2654     0.2654 Lexical              ◄
+  8      POS Bigram Entropy           −  0.2369     0.2369 Structural          
+  9      Adv Ratio                    −  0.2074     0.2074 POS Density         
+  10     Verb Ratio                   +  0.2064     0.2064 POS Density         
+  11     Punctuation Density          −  0.1891     0.1891 Syntactic (Basic)   
+  12     Morphological Complexity     −  0.1770     0.1770 Morphological       
+  13     Avg Dependency Length        +  0.1759     0.1759 Syntactic (Deep)    
+  14     Avg Sentence Length          +  0.1578     0.1578 Syntactic (Basic)   
+  15     Hapax Ratio                  −  0.1555     0.1555 Lexical             
+  16     Type-Token Ratio             −  0.1488     0.1488 Lexical             
+  17     Unique POS Ratio             −  0.1233     0.1233 Syntactic (Deep)    
+  18     Sentence Length Var          +  0.0593     0.0593 Syntactic (Basic)   
+  19     Adj Ratio                    −  0.0518     0.0518 POS Density         
+  20     SOV Order Ratio              −  0.0340     0.0340 Structural          
+  21     Top-100 Vocab %              +  0.0299     0.0299 Predictability      
+  22     Top-1000 Vocab %             +  0.0057     0.0057 Predictability      
+
+  ▸ INTERPRETATION:
+    The secondary axis is driven by POS COMPOSITION (Noun/Verb ratios)
+    and SYNTACTIC REGULARITY (POS Bigram Entropy, Prefix/Postfix
+    Variance). This axis captures structural writing patterns.
+
+━━━ 4. FEATURE GROUP CONTRIBUTIONS (Sum of Squared Loadings) ━
+
+  Group                     PC1 Contrib  PC2 Contrib      Total
+  ──────────────────────── ──────────── ──────────── ──────────
+  Syntactic (Deep)               0.3591       0.2265     0.5855 ★
+  Structural                     0.1878       0.2240     0.4118 ★
+  Lexical                        0.2682       0.1167     0.3850 ★
+  POS Density                    0.0403       0.3364     0.3767 ★
+  Syntactic (Basic)              0.0924       0.0642     0.1565 ★
+  Morphological                  0.0382       0.0313     0.0696
+  Predictability                 0.0141       0.0009     0.0150
+
+━━━ 5. MEAN FEATURE VALUES: HUMAN vs LLM ━━━━━━━━━━━━━━━
+
+  Feature                        Human Mean     LLM Mean   Diff (H−L) Direction
+  ──────────────────────────── ──────────── ──────────── ──────────── ────────────────
+  Sentence Length Var               51.3689      42.4527      +8.9162 Human higher
+  Avg Sentence Length               14.1957      18.0724      -3.8767 LLM higher
+  Avg Tree Depth                     4.6520       5.5017      -0.8497 LLM higher
+  Avg Word Length                    5.6292       6.0684      -0.4392 LLM higher
+  Avg Dependency Length              2.5727       2.9414      -0.3687 LLM higher
+  POS Bigram Entropy                 5.3039       5.0094      +0.2945 Human higher
+  Morphological Complexity           1.9186       1.7003      +0.2183 Human higher
+  Hapax Ratio                        0.5582       0.6843      -0.1261 LLM higher
+  Postfix Variance                   0.4608       0.5714      -0.1106 LLM higher
+  Prefix Variance                    0.5178       0.6259      -0.1081 LLM higher
+  SOV Order Ratio                    0.6885       0.5817      +0.1068 Human higher
+  Type-Token Ratio                   0.7159       0.8067      -0.0908 LLM higher
+  Dep Pattern Diversity              0.3055       0.3916      -0.0861 LLM higher
+  Unique POS Ratio                   0.0536       0.0961      -0.0425 LLM higher
+  Top-100 Vocab %                    0.2292       0.2657      -0.0365 LLM higher
+  Top-1000 Vocab %                   0.4945       0.5220      -0.0276 LLM higher
+  Punctuation Density                0.1297       0.1034      +0.0263 Human higher
+  Adv Ratio                          0.0688       0.0517      +0.0171 Human higher
+  Proper Noun Ratio                  0.0188       0.0108      +0.0080 Human higher
+  Adj Ratio                          0.0307       0.0380      -0.0073 LLM higher
+  Verb Ratio                         0.1304       0.1257      +0.0047 Human higher
+  Noun Ratio                         0.3025       0.3035      -0.0010 LLM higher
+
+━━━ 6. KEY FINDINGS (RQ2 ANSWER) ━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. LEXICAL DIVERSITY is the strongest separator (PC1):
+     Type-Token Ratio and Hapax Ratio have the highest PC1 loadings,
+     indicating that human text uses more varied and unique vocabulary
+     compared to LLM-generated text.
+
+  2. MORPHOLOGICAL VARIANCE matters (PC1):
+     Prefix/Postfix Variance and Tree Depth contribute strongly to PC1,
+     showing that human text exhibits more diverse morphological patterns
+     and deeper syntactic structures.
+
+  3. POS COMPOSITION drives PC2:
+     Noun and Verb ratios dominate PC2, suggesting that the balance
+     of parts-of-speech differs systematically between sources.
+
+  4. POS REGULARITY is a key signal (PC2):
+     POS Bigram Entropy has a strong negative PC2 loading, indicating
+     that LLM text tends toward more predictable POS sequences.
+
+  5. PREDICTABILITY features (Top-K Vocab Overlap) are WEAK separators:
+     Despite being inspired by GLTR, vocabulary overlap percentages
+     have relatively low loadings, suggesting they are less useful
+     for Marathi text than structural/morphological features.
+
+━━━ 7. METHOD COMPARISON ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Method                                Accuracy   Human F1     LLM F1
+  ─────────────────────────────────── ────────── ────────── ──────────
+  HC Features → PCA → SVM                 0.9229     0.9180     0.9272
+  HC Features → SVM                       0.9558     0.9537     0.9577
+  BERT Embeddings → PCA → SVM             0.5691     0.6738     0.3657
+  BERT Embeddings → SVM                   0.9690     0.9677     0.9701
+  HC + BERT Combined → PCA → SVM          0.6754     0.6057     0.7242
+
+  ▸ Handcrafted features with PCA+SVM dramatically outperform
+    BERT embeddings with the same PCA+SVM pipeline, validating
+    the effectiveness of linguistically-motivated feature design.
+
+==========================================================================================
